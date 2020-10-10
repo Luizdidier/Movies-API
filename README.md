@@ -19,7 +19,7 @@ API parecida com o IMDB onde poderá se cadastrar como Usuario ou como Administr
       * Atualizar informações do usuário logado.
       * Deletar usuário.
     
-    - Administrador
+   - Administrador
       * Listar filmes.
       * Ver Detalhes dos filmes.
       * Cadastrar Filmes e atualizar.
