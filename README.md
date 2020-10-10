@@ -12,7 +12,8 @@
 # Movies API
 
 API parecida com o IMDB onde poderá se cadastrar como Usuario ou como Administrador.
-    - Usuário 
+    
+   - Usuário 
       * Listar filmes.
       * Ver Detalhes dos filmes.
       * Votar nos filmes.
