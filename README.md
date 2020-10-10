@@ -4,7 +4,7 @@
     <img
       alt="Node.js"
       src="https://nodejs.org/static/images/logo-light.svg"
-      width="40"
+      width="100"
     />
   </a>
 </p>
