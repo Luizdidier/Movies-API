@@ -2,7 +2,14 @@ const knex = require("../../config/knex/knex");
 
 async function getMovies(filter, offset, per_page) {
   const query = knex
-    .select("name", "gender", "directors", "release_year as year", "stars")
+    .select(
+      "id",
+      "name",
+      "gender",
+      "directors",
+      "release_year as year",
+      "stars"
+    )
     .from("movies");
 
   if (filter.gender)
@@ -43,8 +50,59 @@ async function createMovies(payload) {
   return query;
 }
 
+async function votingMovie(payload, userId) {
+  const query = knex
+    .insert({
+      movies_id: payload.movieId,
+      rating: payload.rate,
+      user_id: userId,
+    })
+    .from("rating");
+
+  return query;
+}
+
+async function verifyRatingUser(payload, userId) {
+  const query = knex
+    .count()
+    .from("rating")
+    .where({ movies_id: payload.movieId })
+    .andWhere({ user_id: userId });
+
+  return query;
+}
+
+async function getMovieById(movieId) {
+  const query = knex
+    .select(
+      "name",
+      "gender",
+      "directors",
+      "release_year as year",
+      "stars",
+      "description"
+    )
+    .from("movies")
+    .where("id", movieId);
+
+  return query;
+}
+
+async function ratingMovie(movieId) {
+  const query = knex
+    .avg("rating as rate")
+    .from("rating")
+    .where("movies_id", movieId);
+
+  return query;
+}
+
 module.exports = {
   getMovies,
   createMovies,
   countMoviesList,
+  votingMovie,
+  verifyRatingUser,
+  getMovieById,
+  ratingMovie,
 };

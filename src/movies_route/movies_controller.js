@@ -77,7 +77,71 @@ async function createMovies(req, res, next) {
   }
 }
 
+async function ratingMovies(req, res, next) {
+  try {
+    const data = req.body;
+    const authHeader = req.headers.authorization;
+    const partsToken = authHeader.split(" ");
+    const decodedJWT = jwt.verify(partsToken[1], authConfig.secret);
+
+    let schema = yup.object({
+      movieId: yup.number().required(),
+      rate: yup.number().min(0).max(4).required(),
+    });
+
+    await schema.validate(data, { abortEarly: false });
+
+    const [verifyVote] = await moviesDb.verifyRatingUser(data, decodedJWT.id);
+
+    if (verifyVote.count == 0) {
+      await moviesDb.votingMovie(data, decodedJWT.id);
+      return res.status(200).json({
+        message: "Successfully evaluated",
+        token: generateToken({ id: decodedJWT.id }),
+      });
+    } else {
+      return res.status(403).json({
+        message: "Unauthorized access",
+        token: generateToken({ id: decodedJWT.id }),
+      });
+    }
+  } catch (err) {
+    if (err.errors && err.errors.length > 0)
+      return res.status(400).json({ validation: err.errors });
+
+    res.status(500).json({ error: err.message });
+    next(err);
+  }
+}
+
+async function detailMovie(req, res, next) {
+  try {
+    const data = req.params;
+    const authHeader = req.headers.authorization;
+    const partsToken = authHeader.split(" ");
+    const decodedJWT = jwt.verify(partsToken[1], authConfig.secret);
+
+    const [movie] = await moviesDb.getMovieById(data.movieId);
+    const [rating] = await moviesDb.ratingMovie(data.movieId);
+
+    const showDetail = {
+      ...movie,
+      rate: Number(rating.rate).toFixed(2),
+    };
+
+    return res.status(200).json({
+      movie: showDetail,
+      token: generateToken({ id: decodedJWT.id }),
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+    next(err);
+  }
+}
+
 module.exports = {
   getMovies,
   createMovies,
+  ratingMovies,
+  detailMovie,
 };

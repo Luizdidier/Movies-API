@@ -9,4 +9,8 @@ router.route("/list/movies").get(moviesController.getMovies);
 
 router.route("/create/movies").post(moviesController.createMovies);
 
+router.route("/rating/movies").patch(moviesController.ratingMovies);
+
+router.route("/detail/:movieId/movie").get(moviesController.detailMovie);
+
 module.exports = router;
