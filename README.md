@@ -27,18 +27,33 @@ API parecida com o IMDB onde poderá se cadastrar como Usuario ou como Administr
   - Cadastrar Filmes e atualizar.
   - Ativar usuário deletado.
 
-# Config
+---
+
+### Config
 
 Na pasta do projeto contém o dump do banco de dados e a collection do postman junto com o environment tanto local quanto de demostração.
 
 Demo: https://movie-node.herokuapp.com
 
-# Getting Starter
+---
 
-Clone o projeto da master em uma pasta de sua escolha, instale o banco de dados PostgresSQL, no knexfile na raiz do projeto coloque as suas credencias do banco de dados local, depois rode os seguintes comandos.
+### Getting Starter
+
+Clone o projeto da master em uma pasta de sua escolha, instale o banco de dados PostgresSQL, no knexfile na raiz do projeto coloque as suas credencias do banco de dados local, depois rode os seguintes comandos em ordem.
 
 ```
   npm install -g nodemon
   npm install
   npm start
+```
+
+---
+
+### Migrações e Dados
+
+Para usar as migrações do projeto, basta estar com o banco de dados, configurado no knexfile.js na raiz do projeto e rodar os seguintes comandos.
+
+```
+knex migrate:latest
+knex seed:run
 ```

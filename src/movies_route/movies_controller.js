@@ -91,17 +91,25 @@ async function ratingMovies(req, res, next) {
 
     await schema.validate(data, { abortEarly: false });
 
-    const [verifyVote] = await moviesDb.verifyRatingUser(data, decodedJWT.id);
+    const movie = await moviesDb.getMovieById(data.movieId);
 
-    if (verifyVote.count == 0) {
-      await moviesDb.votingMovie(data, decodedJWT.id);
-      return res.status(200).json({
-        message: "Successfully evaluated",
-        token: generateToken({ id: decodedJWT.id }),
-      });
+    if (movie.length > 0) {
+      const [verifyVote] = await moviesDb.verifyRatingUser(data, decodedJWT.id);
+      if (verifyVote.count == 0) {
+        await moviesDb.votingMovie(data, decodedJWT.id);
+        return res.status(200).json({
+          message: "Successfully evaluated",
+          token: generateToken({ id: decodedJWT.id }),
+        });
+      } else {
+        return res.status(200).json({
+          message: "You already rated this movie",
+          token: generateToken({ id: decodedJWT.id }),
+        });
+      }
     } else {
-      return res.status(403).json({
-        message: "Unauthorized access",
+      return res.status(404).json({
+        message: "Movie not found !",
         token: generateToken({ id: decodedJWT.id }),
       });
     }
@@ -122,17 +130,25 @@ async function detailMovie(req, res, next) {
     const decodedJWT = jwt.verify(partsToken[1], authConfig.secret);
 
     const [movie] = await moviesDb.getMovieById(data.movieId);
-    const [rating] = await moviesDb.ratingMovie(data.movieId);
 
-    const showDetail = {
-      ...movie,
-      rate: Number(rating.rate).toFixed(2),
-    };
+    if (movie) {
+      const [rating] = await moviesDb.ratingMovie(data.movieId);
 
-    return res.status(200).json({
-      movie: showDetail,
-      token: generateToken({ id: decodedJWT.id }),
-    });
+      const showDetail = {
+        ...movie,
+        rate: Number(rating.rate).toFixed(2),
+      };
+
+      return res.status(200).json({
+        movie: showDetail,
+        token: generateToken({ id: decodedJWT.id }),
+      });
+    } else {
+      return res.status(404).json({
+        message: "Movie not found !",
+        token: generateToken({ id: decodedJWT.id }),
+      });
+    }
   } catch (err) {
     res.status(500).json({ error: err.message });
     next(err);
