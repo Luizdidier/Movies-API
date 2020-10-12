@@ -9,6 +9,7 @@ const roles = require("../config/roles.json");
 async function getMovies(req, res, next) {
   try {
     const filter = req.query;
+
     const authHeader = req.headers.authorization;
     const partsToken = authHeader.split(" ");
     const decodedJWT = jwt.verify(partsToken[1], authConfig.secret);
