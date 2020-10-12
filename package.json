@@ -1,6 +1,6 @@
 {
-  "name": "skeleton-nodejs",
-  "version": "0.0.0",
+  "name": "Movies API",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "nodemon ./bin/www"
