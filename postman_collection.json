@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "85091417-dde9-42b8-9c64-e97f04f096e3",
+		"name": "IMDB-API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"id": "605f9a18-38a8-4a33-93c6-8d5c969a3a3f",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"id": "a30b4eea-3184-4158-8f3b-28d2edde519d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"luizdidier\",\n\t\"password\": \"123456\",\n\t\"firstname\": \"Luiz\",\n\t\"lastname\": \"Didier\",\n\t\"email\": \"luizmdidier@gmail.com\",\n\t\"isAdmin\": true\n}"
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/register",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "52c006b5-d698-4dca-b0b1-3b6c8ac16251",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"username\": \"luizdidier5\",\n\t\"password\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/authenticate",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"authenticate"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "567f2fad-ca2a-404a-91a4-39985033fbb0",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/delete/user",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"delete",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Active User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7703c98f-e6ea-4900-9c70-8160c13768cb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"userId\": 53\n}"
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/active/user",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"active",
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "7703c98f-e6ea-4900-9c70-8160c13768cb",
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"firstname\": \"Luiz\",\n\t\"lastname\": \"Didier1\",\n\t\"email\": \"abba@gmail.com\"\n}"
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/update/user",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"update",
+								"user"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Movies",
+			"item": [
+				{
+					"name": "List",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83528296-2c14-4df4-ab4f-0e4a59dda18d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{URLLocal}}/api/list/movies?page=1&per_page=5",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"list",
+								"movies"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "citizen",
+									"disabled": true
+								},
+								{
+									"key": "gender",
+									"value": "drama",
+									"disabled": true
+								},
+								{
+									"key": "stars",
+									"value": "John",
+									"disabled": true
+								},
+								{
+									"key": "director",
+									"value": "Chad Stahelski",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detail",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83528296-2c14-4df4-ab4f-0e4a59dda18d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{URLLocal}}/api/detail/6/movie",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"detail",
+								"6",
+								"movie"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83528296-2c14-4df4-ab4f-0e4a59dda18d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"The Lord of the Rings: The Return of the King\",\n    \"gender\": \"Action, Adventure, Drama\",\n    \"directors\": \"Peter Jackson\",\n    \"description\": \"Gandalf and Aragorn lead the World of Men against Sauron's army to draw his gaze from Frodo and Sam as they approach Mount Doom with the One Ring.\",\n    \"year\": \"2003\",\n    \"stars\": \"Elijah Wood, Viggo Mortensen, Ian McKellen\"\n}"
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/create/movies",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"create",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rating",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "83528296-2c14-4df4-ab4f-0e4a59dda18d",
+								"exec": [
+									"var jsonData = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"movieId\": 4,\n    \"rate\": 4\n}"
+						},
+						"url": {
+							"raw": "{{URLLocal}}/api/rating/movies",
+							"host": [
+								"{{URLLocal}}"
+							],
+							"path": [
+								"api",
+								"rating",
+								"movies"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "abcdb5be-75e4-43f6-a482-1ed042b99a35",
+			"key": "URLLocal",
+			"value": "localhost:3000",
+			"type": "string"
+		}
+	]
+}
