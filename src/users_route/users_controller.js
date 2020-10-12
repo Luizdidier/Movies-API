@@ -4,12 +4,7 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const authConfig = require("../config/auth.json");
 const knex = require("../../config/knex/knex");
-
-function _generateToken(params = {}, time = 86400) {
-  return jwt.sign(params, authConfig.secret, {
-    expiresIn: time,
-  });
-}
+const generateToken = require("../shared/generate_token");
 
 async function registerUser(req, res, next) {
   try {
@@ -45,7 +40,7 @@ async function registerUser(req, res, next) {
 
         return res.status(200).json({
           userId: user,
-          token: _generateToken({ id: user }),
+          token: generateToken({ id: user }),
         });
       } catch (e) {
         trx.rollback();
@@ -88,7 +83,7 @@ async function authUser(req, res, next) {
 
     return res.status(200).json({
       user,
-      token: _generateToken({ id: user.id }),
+      token: generateToken({ id: user.id }),
     });
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -109,7 +104,7 @@ async function activeOrDeactiveUser(req, res, next) {
       await usersDb.activeOrDeactiveUser(false, decodedJWT.id);
       return res.status(200).json({
         message: "User successfully deleted",
-        token: _generateToken({ id: decodedJWT.id }, 0),
+        token: generateToken({ id: decodedJWT.id }, 0),
       });
     }
     if (path.includes("active")) {
