@@ -16,7 +16,7 @@ app.use("/api", users_route);
 
 app.use("/api", movies_route);
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log("Server is run...");
 });
 
