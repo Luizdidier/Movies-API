@@ -13,6 +13,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use("/api", users_route);
+
 app.use("/api", movies_route);
 
 app.listen(3000, () => {
