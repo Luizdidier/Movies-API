@@ -2,38 +2,38 @@
 
 module.exports = {
   development: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      host : 'localhost',
-      user : 'postgres',
-      password : 's3cr3t',
-      database : 'imdb',
-      charset: 'utf8'
+      host: "localhost",
+      user: "postgres",
+      password: "s3cr3t",
+      database: "imdb",
+      charset: "utf8",
     },
-    debug: true
+    debug: true,
   },
 
   test: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      host : 'localhost',
-      user : 'postgres',
-      password : 's3cr3t',
-      database : 'imdb',
-      charset: 'utf8'
+      host: "localhost",
+      user: "postgres",
+      password: "s3cr3t",
+      database: "imdb",
+      charset: "utf8",
     },
-    useNullAsDefault: true
+    useNullAsDefault: true,
   },
 
   production: {
-    client: 'pg',
+    client: "pg",
     connection: {
-      host : 'localhost',
-      user : 'postgres',
-      password : 's3cr3t',
-      database : 'imdb',
-      charset: 'utf8'
+      host: "localhost",
+      user: "postgres",
+      password: "s3cr3t",
+      database: "imdb",
+      charset: "utf8",
     },
-    useNullAsDefault: true
-  }
-}
+    useNullAsDefault: true,
+  },
+};
